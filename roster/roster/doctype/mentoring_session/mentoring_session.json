@@ -1,0 +1,145 @@
+{
+ "actions": [],
+ "allow_bulk_edit": 1,
+ "allow_rename": 1,
+ "autoname": "SESSION-.####",
+ "creation": "2026-07-28 16:58:04.628533",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "mentor",
+  "topic",
+  "session_date",
+  "start_time",
+  "end_time",
+  "wrokflow_state",
+  "event_id",
+  "meet_link",
+  "notes",
+  "feedback_sent",
+  "deliverable",
+  "deliverable_due_date",
+  "invited_fellows",
+  "rescheduled_from",
+  "rescheduled_to",
+  "reschedule_reason"
+ ],
+ "fields": [
+  {
+   "fieldname": "mentor",
+   "fieldtype": "Link",
+   "label": "Mentor",
+   "options": "Mentor"
+  },
+  {
+   "fieldname": "topic",
+   "fieldtype": "Data",
+   "label": "Topic"
+  },
+  {
+   "fieldname": "session_date",
+   "fieldtype": "Date",
+   "label": "Session Date"
+  },
+  {
+   "fieldname": "start_time",
+   "fieldtype": "Time",
+   "label": "Start Time"
+  },
+  {
+   "fieldname": "end_time",
+   "fieldtype": "Time",
+   "label": "End Time"
+  },
+  {
+   "fieldname": "wrokflow_state",
+   "fieldtype": "Select",
+   "label": "Wrokflow State",
+   "options": "Draft / Scheduled / Created / Completed / Cancelled / Rescheduled / Updated / Failed"
+  },
+  {
+   "fieldname": "event_id",
+   "fieldtype": "Data",
+   "label": "Event ID",
+   "read_only": 1
+  },
+  {
+   "fieldname": "meet_link",
+   "fieldtype": "Data",
+   "label": "Meet Link",
+   "read_only": 1
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Small Text",
+   "label": "Notes"
+  },
+  {
+   "fieldname": "feedback_sent",
+   "fieldtype": "Select",
+   "label": "Feedback Sent",
+   "options": "Not Sent / Yes / Partial"
+  },
+  {
+   "fieldname": "deliverable",
+   "fieldtype": "Small Text",
+   "label": "Deliverable"
+  },
+  {
+   "fieldname": "deliverable_due_date",
+   "fieldtype": "Date",
+   "label": "Deliverable Due Date"
+  },
+  {
+   "fieldname": "invited_fellows",
+   "fieldtype": "Link",
+   "label": "Invited Fellows",
+   "options": "Session Fellow"
+  },
+  {
+   "fieldname": "rescheduled_from",
+   "fieldtype": "Link",
+   "label": "Rescheduled From",
+   "options": "Mentoring Session"
+  },
+  {
+   "fieldname": "rescheduled_to",
+   "fieldtype": "Link",
+   "label": "Rescheduled To",
+   "options": "Mentoring Session"
+  },
+  {
+   "fieldname": "reschedule_reason",
+   "fieldtype": "Small Text",
+   "label": "Reschedule Reason"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-07-28 17:22:32.345671",
+ "modified_by": "Administrator",
+ "module": "Roster",
+ "name": "Mentoring Session",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}
