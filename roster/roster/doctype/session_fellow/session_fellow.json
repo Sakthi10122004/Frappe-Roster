@@ -17,29 +17,34 @@
   {
    "fieldname": "fellow",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Fellow",
    "options": "Fellow"
   },
   {
    "fieldname": "fellow_name",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "Fellow Name"
   },
   {
    "default": "0",
    "fieldname": "attended",
    "fieldtype": "Check",
+   "in_list_view": 1,
    "label": "Attended"
   },
   {
    "fieldname": "deliverable_status",
    "fieldtype": "Select",
+   "in_list_view": 1,
    "label": "Deliverable Status",
-   "options": "Not Assigned / Pending / Submitted / Overdue"
+   "options": "Not Assigned\nPending\nSubmitted\nOverdue"
   },
   {
    "fieldname": "submitted_on",
    "fieldtype": "Date",
+   "in_list_view": 1,
    "label": "Submitted On"
   }
  ],
@@ -47,7 +52,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2026-07-28 17:06:11.036097",
+ "modified": "2026-07-29 11:28:15.813402",
  "modified_by": "Administrator",
  "module": "Roster",
  "name": "Session Fellow",

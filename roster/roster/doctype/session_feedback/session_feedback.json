@@ -19,7 +19,7 @@
    "fieldname": "mentoring_session",
    "fieldtype": "Link",
    "label": "Mentoring Session",
-   "options": "Mentoring Session"
+   "options": "Lecture Session"
   },
   {
    "fieldname": "respondent_email",
@@ -27,14 +27,18 @@
    "label": "Respondent Email"
   },
   {
+   "fetch_from": "mentoring_session.mentor",
    "fieldname": "mentor",
    "fieldtype": "Data",
-   "label": "Mentor"
+   "label": "Mentor",
+   "read_only": 1
   },
   {
+   "fetch_from": "mentoring_session.topic",
    "fieldname": "topic",
    "fieldtype": "Data",
-   "label": "Topic"
+   "label": "Topic",
+   "read_only": 1
   },
   {
    "fieldname": "rating",
@@ -55,7 +59,7 @@
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-07-28 17:10:31.255344",
+ "modified": "2026-07-29 11:25:02.586201",
  "modified_by": "Administrator",
  "module": "Roster",
  "name": "Session Feedback",

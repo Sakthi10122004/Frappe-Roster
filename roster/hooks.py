@@ -149,23 +149,17 @@ app_license = "mit"
 # Scheduled Tasks
 # ---------------
 
-# scheduler_events = {
-# 	"all": [
-# 		"roster.tasks.all"
-# 	],
-# 	"daily": [
-# 		"roster.tasks.daily"
-# 	],
-# 	"hourly": [
-# 		"roster.tasks.hourly"
-# 	],
-# 	"weekly": [
-# 		"roster.tasks.weekly"
-# 	],
-# 	"monthly": [
-# 		"roster.tasks.monthly"
-# 	],
-# }
+scheduler_events = {
+	"cron": {
+		"*/5 * * * *": [
+			"roster.roster.tasks.check_completed_sessions",
+			"roster.roster.tasks.process_pending_schedules",
+		],
+		"0 * * * *": [
+			"roster.roster.tasks.mark_overdue_deliverables",
+		],
+	}
+}
 
 # Testing
 # -------
