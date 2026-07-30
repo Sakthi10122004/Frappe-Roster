@@ -5,6 +5,10 @@ app_description = "Roster Application"
 app_email = "sakthi@example.com"
 app_license = "mit"
 
+fixtures = [
+	"Email Template"
+]
+
 # Apps
 # ------------------
 
