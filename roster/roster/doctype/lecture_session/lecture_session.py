@@ -395,6 +395,7 @@ def get_lecture_session_events(start, end, filters=None):
 		s["start"] = f"{s.session_date} {s.start_time or '00:00:00'}"
 		s["end"] = f"{s.session_date} {s.end_time or s.start_time or '00:00:00'}"
 		s["allDay"] = 0
+		s["docstatus"] = 1  # Hack to force Frappe calendar to make event non-editable (non-draggable)
 
 	return sessions
 
