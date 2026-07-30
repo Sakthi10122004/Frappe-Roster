@@ -1,0 +1,75 @@
+{
+ "actions": [],
+ "allow_bulk_edit": 1,
+ "allow_rename": 1,
+ "creation": "2026-07-30 15:09:49.074478",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "enable",
+  "user",
+  "authorization_code",
+  "refresh_token",
+  "cb"
+ ],
+ "fields": [
+  {
+   "default": "0",
+   "fieldname": "enable",
+   "fieldtype": "Check",
+   "label": "Enable"
+  },
+  {
+   "fieldname": "user",
+   "fieldtype": "Link",
+   "label": "User",
+   "options": "User",
+   "unique": 1
+  },
+  {
+   "fieldname": "authorization_code",
+   "fieldtype": "Password",
+   "label": "Authorization Code"
+  },
+  {
+   "fieldname": "refresh_token",
+   "fieldtype": "Password",
+   "label": "Refresh Token",
+   "read_only": 1
+  },
+  {
+   "fieldname": "cb",
+   "fieldtype": "HTML",
+   "label": "Authorize",
+   "options": "<button class=\"btn btn-primary btn-sm\" onclick=\"if(cur_frm.is_new()){frappe.msgprint('Please save the document first!');return;}frappe.call({method: 'roster.roster.doctype.google_drive.google_drive.authorize_access', args: { g_drive: cur_frm.doc.name }, callback: function(r) { if (!r.exc) { window.open(r.message.url); } } });\">Authorize Google Drive Access</button>"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-07-30 17:02:53.811398",
+ "modified_by": "Administrator",
+ "module": "Roster",
+ "name": "Google Drive",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}

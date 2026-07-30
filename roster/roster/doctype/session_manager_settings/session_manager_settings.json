@@ -1,0 +1,114 @@
+{
+    "actions": [],
+    "allow_bulk_edit": 1,
+    "allow_rename": 1,
+    "creation": "2026-07-28 17:23:03.815630",
+    "doctype": "DocType",
+    "engine": "InnoDB",
+    "field_order": [
+        "section_break_emails",
+        "invite_email_template",
+        "deliverable_email_template",
+        "feedback_email_template",
+        "section_break_scheduler",
+        "google_calendar",
+        "completion_check_interval",
+        "backup_sync_interval",
+        "overdue_check_hour",
+        "section_break_debug",
+        "enable_debug_logging"
+    ],
+    "fields": [
+        {
+            "fieldname": "section_break_emails",
+            "fieldtype": "Section Break",
+            "label": "Email Templates"
+        },
+        {
+            "fieldname": "feedback_email_template",
+            "fieldtype": "Link",
+            "label": "Feedback Email Template",
+            "options": "Email Template"
+        },
+        {
+            "fieldname": "invite_email_template",
+            "fieldtype": "Link",
+            "label": "Invite Email Template",
+            "options": "Email Template"
+        },
+        {
+            "fieldname": "deliverable_email_template",
+            "fieldtype": "Link",
+            "label": "Deliverable Email Template",
+            "options": "Email Template"
+        },
+        {
+            "fieldname": "section_break_scheduler",
+            "fieldtype": "Section Break",
+            "label": "Scheduler & Synchronization"
+        },
+        {
+            "description": "Select the Google Calendar to sync events to (must be configured in Integrations)",
+            "fieldname": "google_calendar",
+            "fieldtype": "Link",
+            "label": "Google Calendar",
+            "options": "Google Calendar"
+        },
+        {
+            "description": "Feeds the checkCompletedSessions equivalent scheduler_events entry",
+            "fieldname": "completion_check_interval",
+            "fieldtype": "Int",
+            "label": "Completion Check Interval (minutes)"
+        },
+        {
+            "description": "Feeds the processSchedules equivalent",
+            "fieldname": "backup_sync_interval",
+            "fieldtype": "Int",
+            "label": "Backup Sync Interval (minutes)"
+        },
+        {
+            "description": "0–23, feeds markOverdueDeliverables",
+            "fieldname": "overdue_check_hour",
+            "fieldtype": "Int",
+            "label": "Overdue Deliverable Check Hour"
+        },
+        {
+            "fieldname": "section_break_debug",
+            "fieldtype": "Section Break",
+            "label": "Debugging"
+        },
+        {
+            "default": "0",
+            "description": "Gates extra logging, equivalent to debugSessionStatus()'s verbosity",
+            "fieldname": "enable_debug_logging",
+            "fieldtype": "Check",
+            "label": "Enable Debug Logging"
+        }
+    ],
+    "grid_page_length": 50,
+    "index_web_pages_for_search": 1,
+    "issingle": 1,
+    "links": [],
+    "modified": "2026-07-30 18:40:00.000000",
+    "modified_by": "Administrator",
+    "module": "Roster",
+    "name": "Session Manager Settings",
+    "owner": "Administrator",
+    "permissions": [
+        {
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "print": 1,
+            "read": 1,
+            "role": "System Manager",
+            "share": 1,
+            "write": 1
+        }
+    ],
+    "row_format": "Dynamic",
+    "rows_threshold_for_grid_search": 20,
+    "sort_field": "creation",
+    "sort_order": "DESC",
+    "states": []
+}

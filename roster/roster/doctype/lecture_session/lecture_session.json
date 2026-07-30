@@ -1,0 +1,165 @@
+{
+ "actions": [],
+ "allow_bulk_edit": 1,
+ "allow_rename": 1,
+ "autoname": "SESSION-.####",
+ "creation": "2026-07-28 16:58:04.628533",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "mentor",
+  "topic",
+  "session_date",
+  "start_time",
+  "end_time",
+  "workflow_state",
+  "event_id",
+  "google_calendar_id",
+  "meet_link",
+  "meeting_notes",
+  "notes",
+  "feedback_sent",
+  "deliverable",
+  "deliverable_due_date",
+  "invited_fellows",
+  "rescheduled_from",
+  "rescheduled_to",
+  "reschedule_reason"
+ ],
+ "fields": [
+  {
+   "fieldname": "mentor",
+   "fieldtype": "Link",
+   "label": "Mentor",
+   "options": "Mentor"
+  },
+  {
+   "fieldname": "topic",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Topic"
+  },
+  {
+   "fieldname": "session_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Session Date"
+  },
+  {
+   "fieldname": "start_time",
+   "fieldtype": "Time",
+   "in_list_view": 1,
+   "label": "Start Time"
+  },
+  {
+   "fieldname": "end_time",
+   "fieldtype": "Time",
+   "in_list_view": 1,
+   "label": "End Time"
+  },
+  {
+   "fieldname": "workflow_state",
+   "fieldtype": "Select",
+   "in_standard_filter": 1,
+   "label": "Workflow State",
+   "options": "Draft\nScheduled\nCreated\nCompleted\nCancelled\nRescheduled\nUpdated\nFailed"
+  },
+  {
+   "fieldname": "event_id",
+   "fieldtype": "Data",
+   "label": "Event ID",
+   "read_only": 1
+  },
+  {
+   "fieldname": "google_calendar_id",
+   "fieldtype": "Data",
+   "fetch_from": "event_id.google_calendar_event_id",
+   "label": "Google Calendar ID",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "event_id.google_meet_link",
+   "fieldname": "meet_link",
+   "fieldtype": "Data",
+   "label": "Meet Link"
+  },
+  {
+   "fieldname": "meeting_notes",
+   "fieldtype": "Data",
+   "label": "Meeting Notes",
+   "options": "URL"
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Small Text",
+   "label": "Notes"
+  },
+  {
+   "fieldname": "feedback_sent",
+   "fieldtype": "Select",
+   "label": "Feedback Sent",
+   "options": "Not Sent\nYes\nPartial"
+  },
+  {
+   "fieldname": "deliverable",
+   "fieldtype": "Small Text",
+   "label": "Deliverable"
+  },
+  {
+   "fieldname": "deliverable_due_date",
+   "fieldtype": "Date",
+   "label": "Deliverable Due Date"
+  },
+  {
+   "fieldname": "invited_fellows",
+   "fieldtype": "Table",
+   "label": "Invited Fellows",
+   "options": "Session Fellow"
+  },
+  {
+   "fieldname": "rescheduled_from",
+   "fieldtype": "Link",
+   "label": "Rescheduled From",
+   "options": "Lecture Session"
+  },
+  {
+   "fieldname": "rescheduled_to",
+   "fieldtype": "Link",
+   "label": "Rescheduled To",
+   "options": "Lecture Session"
+  },
+  {
+   "fieldname": "reschedule_reason",
+   "fieldtype": "Small Text",
+   "label": "Reschedule Reason"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-07-29 18:25:00.000000",
+ "modified_by": "Administrator",
+ "module": "Roster",
+ "name": "Lecture Session",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}
