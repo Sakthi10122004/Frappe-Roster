@@ -287,8 +287,8 @@ class LectureSession(Document):
 
 	def _send_deliverable_email(self):
 		settings = frappe.get_single("Session Manager Settings")
-		template = settings.deliverable_email_template
-		if not template:
+		template_name = settings.deliverable_email_template
+		if not template_name:
 			frappe.log_error(f"No Deliverable Email Template configured for Lecture Session {self.name}.")
 			return
 
@@ -296,6 +296,8 @@ class LectureSession(Document):
 		attended_fellows = [f for f in self.invited_fellows if f.attended]
 		if not attended_fellows:
 			return
+			
+		email_template = frappe.get_doc("Email Template", template_name)
 
 		for fellow in attended_fellows:
 			fellow_email = frappe.db.get_value("Fellow", fellow.fellow, "email")
@@ -303,16 +305,22 @@ class LectureSession(Document):
 				continue
 				
 			try:
-				email_args = {
+				context = {
 					"doc": self,
 					"fellow": fellow,
 					"deliverable": self.deliverable
 				}
+				
+				subject = frappe.render_template(email_template.subject, context)
+				if email_template.use_html:
+					message = frappe.render_template(email_template.response_html, context)
+				else:
+					message = frappe.render_template(email_template.response, context)
+					
 				frappe.sendmail(
 					recipients=[fellow_email],
-					template=template,
-					args=email_args,
-					subject=f"Deliverables for {self.topic}",
+					message=message,
+					subject=subject or f"Deliverables for {self.topic}",
 					reference_doctype=self.doctype,
 					reference_name=self.name,
 					now=False
@@ -322,22 +330,34 @@ class LectureSession(Document):
 
 	def _send_feedback_email(self):
 		settings = frappe.get_single("Session Manager Settings")
-		template = settings.feedback_email_template
-		if not template:
+		template_name = settings.feedback_email_template
+		if not template_name:
 			return
 
 		attended_fellows = [f for f in self.invited_fellows if f.attended]
+		if not attended_fellows:
+			return
+			
+		email_template = frappe.get_doc("Email Template", template_name)
+		
 		for fellow in attended_fellows:
 			fellow_email = frappe.db.get_value("Fellow", fellow.fellow, "email")
 			if not fellow_email:
 				continue
 				
 			try:
+				context = {"doc": self, "fellow": fellow, "fellow_email": fellow_email}
+				
+				subject = frappe.render_template(email_template.subject, context)
+				if email_template.use_html:
+					message = frappe.render_template(email_template.response_html, context)
+				else:
+					message = frappe.render_template(email_template.response, context)
+					
 				frappe.sendmail(
 					recipients=[fellow_email],
-					template=template,
-					args={"doc": self, "fellow": fellow},
-					subject=f"Feedback Request: {self.topic}",
+					message=message,
+					subject=subject or f"Feedback Request: {self.topic}",
 					reference_doctype=self.doctype,
 					reference_name=self.name,
 					now=False
@@ -424,6 +444,80 @@ def create_meeting_notes(session_name):
 		# Create empty document
 		document = service.documents().create(body={"title": title}).execute()
 		document_id = document.get("documentId")
+		
+		# Pre-draft document content
+		date_str = frappe.utils.formatdate(doc.session_date)
+		topic_str = doc.topic or "Untitled Session"
+		
+		attendees = []
+		if doc.mentor:
+			attendees.append(f"{doc.mentor} (Mentor)")
+		for row in (doc.invited_fellows or []):
+			if row.fellow_name:
+				attendees.append(row.fellow_name)
+		attendees_str = ", ".join(attendees)
+		
+		header_text = f"{date_str} | {topic_str}\nAttendees: {attendees_str}\n\n"
+		notes_heading = "Notes\n"
+		notes_body = "• \n• \n\n"
+		action_heading = "Action items\n"
+		action_body = "[ ] \n[ ] \n"
+		
+		full_text = header_text + notes_heading + notes_body + action_heading + action_body
+		
+		# Calculate indices for bold formatting
+		idx_start = 1
+		notes_start = idx_start + len(header_text)
+		notes_end = notes_start + len(notes_heading)
+		
+		action_start = notes_end + len(notes_body)
+		action_end = action_start + len(action_heading)
+		
+		requests = [
+			{
+				"insertText": {
+					"location": {"index": 1},
+					"text": full_text
+				}
+			},
+			{
+				"updateTextStyle": {
+					"range": {
+						"startIndex": notes_start,
+						"endIndex": notes_end
+					},
+					"textStyle": {"bold": True},
+					"fields": "bold"
+				}
+			},
+			{
+				"updateTextStyle": {
+					"range": {
+						"startIndex": action_start,
+						"endIndex": action_end
+					},
+					"textStyle": {"bold": True},
+					"fields": "bold"
+				}
+			},
+			{
+				"updateTextStyle": {
+					"range": {
+						"startIndex": 1,
+						"endIndex": 1 + len(f"{date_str} | {topic_str}")
+					},
+					"textStyle": {"bold": True},
+					"fields": "bold"
+				}
+			}
+		]
+		
+		try:
+			service.documents().batchUpdate(documentId=document_id, body={"requests": requests}).execute()
+		except Exception as format_err:
+			frappe.log_error("Google Docs Formatting Failed", str(format_err))
+			# We swallow this error so the document is still linked even if formatting fails
+		
 		url = f"https://docs.google.com/document/d/{document_id}/edit"
 		
 		doc.db_set("meeting_notes", url)
@@ -431,5 +525,10 @@ def create_meeting_notes(session_name):
 		return {"status": "success", "url": url}
 	except Exception as e:
 		frappe.log_error("Google Docs Creation Failed", str(e))
-		frappe.throw("Failed to create Google Doc. Please check your Google Drive authorization.")
+		
+		error_msg = str(e)
+		if "Google Docs API has not been used" in error_msg or "disabled" in error_msg:
+			frappe.throw("The **Google Docs API** is not enabled in your Google Cloud Project. Please click [here](https://console.developers.google.com/apis/api/docs.googleapis.com) to enable it, then try again.")
+		else:
+			frappe.throw("Failed to create Google Doc. Please check your Google Drive authorization and try again.")
 
