@@ -7,7 +7,6 @@
  "engine": "InnoDB",
  "field_order": [
   "mentoring_session",
-  "respondent_email",
   "mentor",
   "topic",
   "rating",
@@ -20,11 +19,6 @@
    "fieldtype": "Link",
    "label": "Mentoring Session",
    "options": "Lecture Session"
-  },
-  {
-   "fieldname": "respondent_email",
-   "fieldtype": "Data",
-   "label": "Respondent Email"
   },
   {
    "fetch_from": "mentoring_session.mentor",
